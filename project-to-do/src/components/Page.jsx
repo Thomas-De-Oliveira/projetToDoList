@@ -5,6 +5,8 @@ import { useContext } from "@/components/ContextProvider.jsx"
 const Page = (props) => {
   const { title,children, ...otherProps } = props
   const { lists } = useContext()
+  // eslint-disable-next-line no-console
+  console.log(Object.values(lists))
 
 
   return (
@@ -15,8 +17,8 @@ const Page = (props) => {
       <header>
         <nav>
           <ul>
-            {lists.map(({ id, name }) => (
-              <li key={id}><Link href={`/list/${id}/allTask`}>{name}</Link></li>
+            {Object.values(lists).map((value,index) => (
+              <li key={index}><Link href={`/list/${value["id"]}/allTask`}>{value["name"]}</Link></li>
             ))}
             <li><Link href="/list/addList">+</Link></li>
           </ul>

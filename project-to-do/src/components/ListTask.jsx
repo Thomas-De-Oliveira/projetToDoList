@@ -10,6 +10,11 @@ const defaultValidationSchema = yup.object().shape({
 
 const defaultInitialValues = {
   name: "",
+  tasks: [{
+            idTask: 1,
+            description: "initial Task",
+            doTask: 0,
+          }]
 }
 
 const ListTask = (props) => {
@@ -28,9 +33,9 @@ const ListTask = (props) => {
 >
   <Form className={classNames("flex flex-col gap-4 p-4", className)}>
       <ul>
-          {initialValues.tasks.map(({ idTask, description, doTask }) => (
-            <li key={idTask}><FormField type="checkbox" data-list-id={ initialValues.id } data-task-id={idTask} name="doTask" value={doTask} onChange={onChange}
-              { ...doTask === 1 ? "checked" : ""} /> {description} </li>
+          {Object.values(initialValues.tasks).map((value, index) => (
+            <li key={index}><FormField type="checkbox" data-list-id={initialValues.id}
+              data-task-id={value["idTask"]} name="doTask" value={value["doTask"]} onChange={onChange} /> {value["description"]} </li>
           ))}
     </ul>
     </Form>

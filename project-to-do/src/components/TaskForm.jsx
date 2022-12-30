@@ -28,7 +28,7 @@ const TaskForm = (props) => {
       validationSchema={validationSchema}
     >
       <Form className={classNames("flex flex-col gap-4 p-4", className)}>
-        <FormField name="description" data-list-id={initialValues.id} type="text" label="Description" />
+        <FormField name="description" type="text" label="Description" />
         <Button type="submit" className="mt-8">
           Add Task
         </Button>

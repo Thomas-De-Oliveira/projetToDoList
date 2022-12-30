@@ -10,7 +10,7 @@ const defaultValidationSchema = yup.object().shape({
 })
 
 const defaultInitialValues = {
-  name: "",
+  name: ""
 }
 
 const ListForm = (props) => {

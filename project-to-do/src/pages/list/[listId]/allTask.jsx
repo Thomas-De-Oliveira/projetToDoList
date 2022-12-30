@@ -16,7 +16,7 @@ const ListTaskPage = (props) => {
   const {
     params: { listId },
   } = props
-  const { lists, updateTask } = useContext()
+  const { lists, updateCheckBoxTask } = useContext()
   const handleChange = useCallback(
     (values) => {
       const check = values.currentTarget.checked
@@ -24,14 +24,10 @@ const ListTaskPage = (props) => {
         values.currentTarget.getAttribute("data-list-id"),
         10
       )
-      const taskId = Number.parseInt(
-        values.currentTarget.getAttribute("data-task-id"),
-        10
-      )
       values.currentTarget.value = check === true ? 1 : 0
-      updateTask(values, listId, taskId)
+      updateCheckBoxTask(values, listId)
     },
-    [updateTask]
+    [updateCheckBoxTask]
   )
 
   return (
