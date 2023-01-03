@@ -17,6 +17,7 @@ const TaskForm = (props) => {
   const {
     className,
     onSubmit,
+    taskId,
     initialValues = defaultInitialValues,
     validationSchema = defaultValidationSchema,
   } = props
@@ -24,13 +25,13 @@ const TaskForm = (props) => {
   return (
     <Formik
       onSubmit={onSubmit}
-      initialValues={initialValues}
+      initialValues={initialValues !== defaultInitialValues ? initialValues.tasks.find(({ idTask }) => idTask === taskId) : initialValues}
       validationSchema={validationSchema}
     >
       <Form className={classNames("flex flex-col gap-4 p-4", className)}>
         <FormField name="description" type="text" label="Description" />
         <Button type="submit" className="mt-8">
-          Add Task
+          SAVE
         </Button>
       </Form>
     </Formik>

@@ -1,8 +1,11 @@
-import FormField from "@/components/FormField.jsx"
+import FormFieldCheckbox from "@/components/FormFieldCheckbox"
 import { nameListValidator } from "@/validator.js"
 import classNames from "classnames"
 import { Form, Formik } from "formik"
 import * as yup from "yup"
+import { TrashIcon } from "@heroicons/react/24/solid"
+import Button from "./Button"
+import Link from "./Link"
 
 const defaultValidationSchema = yup.object().shape({
   name: nameListValidator.required(),
@@ -21,25 +24,31 @@ const ListTask = (props) => {
   const {
     className,
     onChange,
+    onClick,
+    listId,
     initialValues = defaultInitialValues,
     validationSchema = defaultValidationSchema,
   } = props
   
   return (
+    <div>
 <Formik
       onChange={onChange}
+      onClick={onClick}
       initialValues={initialValues}
       validationSchema={validationSchema}
 >
-  <Form className={classNames("flex flex-col gap-4 p-4", className)}>
-      <ul>
+  <Form className={classNames("flex flex-col gap-4", className)}>
+      <ul className="flex flex-col">
           {Object.values(initialValues.tasks).map((value, index) => (
-            <li key={index}><FormField type="checkbox" data-list-id={initialValues.id}
-              data-task-id={value["idTask"]} name="doTask" value={value["doTask"]} onChange={onChange} /> {value["description"]} </li>
+            <li key={index} className="flex flex-wrap border-b-2 border-slate-200 mt-2"><FormFieldCheckbox className="p-2 m-2" checked={value["doTask"] === 1 ? "checked" : ""} type="checkbox"  data-list-id={initialValues.id}
+              data-task-id={value["idTask"]} name="doTask" value={value["doTask"]} onChange={onChange} /><Link href={`/list/${listId}/${value["idTask"]}/editTask`}> {value["description"]}</Link>
+              <Button type="button" className="rounded-full mx-4 flex flex-grow justify-end" variant="transparent" size="tr" data-task-id={value["idTask"]} onClick={onClick}><TrashIcon className="w-4" /></Button> </li>
           ))}
     </ul>
     </Form>
-    </Formik>
+      </Formik>
+      </div>
      )
 }
 

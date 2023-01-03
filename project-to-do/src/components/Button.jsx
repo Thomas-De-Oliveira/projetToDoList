@@ -4,11 +4,13 @@ import classNames from "classnames"
 const variants = {
   primary: "bg-blue-600 active:bg-blue-700 text-white",
   secondary: "active:bg-slate-100 text-slate-900",
+  transparent: "text-black"
 }
 
 const sizes = {
   sm: "px-2 py-1 text-sm",
   md: "px-4 py-2 text-base font-semibold",
+  tr: "p-1"
 }
 
 const Button = (props) => {

@@ -10,7 +10,7 @@ const initialList = [
     id: 1,
     name: "initialList",
     taskDo: 0,
-    taskNoDo: 0,
+    taskNoDo: 1,
     tasks: [
       {
         idTask: 1,
@@ -48,7 +48,7 @@ const ContextProvider = (props) => {
           id: getNextId(),
           ...list,
           taskDo: 0,
-          taskNoDo: 0,
+          taskNoDo: 1,
           tasks: [{
             idTask: 1,
             description: "initial Task",
@@ -69,26 +69,33 @@ const ContextProvider = (props) => {
     )
   }, [])
 
-  const updateCheckBoxTask = useCallback((updatedTask, idList) => {
-    setLists((lists) =>
-      lists.map((list) => (list.id === idList ?
-        list.tasks.map((task) => (task.idTask === updatedTask.idTask ? updatedTask : task)) : list))
-    )}, [])
+  const updateCheckBoxTask = useCallback(
+    (changeDoTask, listId, taskId) => {
+      setLists((lists) =>
+      (lists.map((list) => (list.id === listId ? list.tasks.map((task) =>
+        task.idTask === taskId ? (changeDoTask === 1 ?
+          { ...list, taskDo: list.taskDo + 1, taskNoDo: list.taskNoDo - 1, ...list.tasks.splice(list.tasks.findIndex(({ idTask }) => idTask === taskId), 1, { ...task, doTask: 1 })}
+        : { ...list, taskDo: list.taskDo - 1 , taskNoDo: list.taskNoDo + 1 , ...list.tasks.splice(list.tasks.findIndex(({ idTask }) => idTask === taskId), 1,{...task, doTask: 0})} ) : list)[list.tasks.findIndex(({ idTask }) => idTask === taskId)] : list) )))
+  }, [])
+  
+  const deleteTask = useCallback(
+    (listId, taskId) => {
+      setLists((lists) => (lists.map((list) => list.id === listId ? list.tasks.map((task) =>
+        task.idTask === taskId ? (task.doTask === 1 ? { ...list, taskDo: list.taskDo - 1, tasks: list.tasks.filter(({ idTask }) => idTask !== taskId) }
+          : { ...list, taskNoDo: list.taskNoDo - 1, tasks: list.tasks.filter(({ idTask }) => idTask !== taskId) })
+          : list)[list.tasks.findIndex(({ idTask }) => idTask === taskId)] : list)))
+    },[])
   
   const createTask = useCallback((task, listId) => {
-    // eslint-disable-next-line no-console
-    console.log(lists)
     setLists((lists) =>
     (lists.map((list) => (list.id === listId ?
-      {...list, ...list.tasks.push({ idTask: getNextIdTask(), ...task, doTask: 0 }) } : list)))
-  )},[])
+      { ...list,  taskNoDo: list.taskNoDo + 1, ...list.tasks.push({ idTask: getNextIdTask(), ...task, doTask: 0 })} : list)))
+  )},[getNextIdTask])
   
 
   const updateTask = useCallback((updatedTask, listId, taskId) => {
-    // eslint-disable-next-line no-console
-    console.log(listId)
     setLists((lists) =>
-      lists.map((list) => (list.id === listId ? list.tasks.map((task) => (task.idTask === taskId ? updatedTask : task)): list))
+      lists.map((list) => (list.id === listId ? (list.tasks.map((task) => task.idTask === taskId ? { ...list, ...list.tasks.splice(list.tasks.findIndex(({ idTask }) => idTask === taskId), 1, { ...updatedTask}) } : list ))[list.tasks.findIndex(({ idTask }) => idTask === taskId)] : list))
     )
   }, [])
 
@@ -102,7 +109,8 @@ const ContextProvider = (props) => {
         updateList,
         updateTask,
         createTask,
-        updateCheckBoxTask
+        updateCheckBoxTask,
+        deleteTask
       }}
     />
   )

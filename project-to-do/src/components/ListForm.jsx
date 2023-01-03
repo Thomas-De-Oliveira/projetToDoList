@@ -30,7 +30,7 @@ const ListForm = (props) => {
       <Form className={classNames("flex flex-col gap-4 p-4", className)}>
         <FormField name="name" type="text" label="Name" />
         <Button type="submit" className="mt-8">
-          Add List
+          SAVE
         </Button>
       </Form>
     </Formik>
