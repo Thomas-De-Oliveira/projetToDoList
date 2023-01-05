@@ -20,11 +20,11 @@ const EditPage = (props) => {
   const router = useRouter()
 
   const handleSubmit = useCallback(
-    (values, listId) => {
+    (values) => {
       updateList(values)
       router.push(`/list/${listId}/allTask`)
     },
-    [updateList, router]
+    [updateList, router, listId]
   )
 
   return (

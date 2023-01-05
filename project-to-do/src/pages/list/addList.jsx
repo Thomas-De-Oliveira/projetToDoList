@@ -10,7 +10,7 @@ const IndexPage = () => {
   const handleClickCreate = useCallback(
     (values) => {
       createList(values)
-      router.push()
+      router.push("/")
     },
     [router,createList]
   )

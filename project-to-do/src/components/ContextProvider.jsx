@@ -34,6 +34,7 @@ const ContextProvider = (props) => {
 
     return nextId
   }, [nextId])
+  
   const getNextIdTask = useCallback(() => {
     setNextIdTask(nextIdTask + 1)
 
@@ -59,15 +60,16 @@ const ContextProvider = (props) => {
     },
     [getNextId]
   )
+
   const deleteList = useCallback(
     (listId) => setLists((lists) => lists.filter(({ id }) => id !== listId)),
-    []
-  )
+  [])
+
   const updateList = useCallback((updatedList) => {
     setLists((lists) =>
       lists.map((list) => (list.id === updatedList.id ? updatedList : list))
     )
-  }, [])
+  },[])
 
   const updateCheckBoxTask = useCallback(
     (changeDoTask, listId, taskId) => {
@@ -76,7 +78,7 @@ const ContextProvider = (props) => {
         task.idTask === taskId ? (changeDoTask === 1 ?
           { ...list, taskDo: list.taskDo + 1, taskNoDo: list.taskNoDo - 1, ...list.tasks.splice(list.tasks.findIndex(({ idTask }) => idTask === taskId), 1, { ...task, doTask: 1 })}
         : { ...list, taskDo: list.taskDo - 1 , taskNoDo: list.taskNoDo + 1 , ...list.tasks.splice(list.tasks.findIndex(({ idTask }) => idTask === taskId), 1,{...task, doTask: 0})} ) : list)[list.tasks.findIndex(({ idTask }) => idTask === taskId)] : list) )))
-  }, [])
+  },[])
   
   const deleteTask = useCallback(
     (listId, taskId) => {
@@ -90,14 +92,14 @@ const ContextProvider = (props) => {
     setLists((lists) =>
     (lists.map((list) => (list.id === listId ?
       { ...list,  taskNoDo: list.taskNoDo + 1, ...list.tasks.push({ idTask: getNextIdTask(), ...task, doTask: 0 })} : list)))
-  )},[getNextIdTask])
+    )
+  },[getNextIdTask])
   
-
   const updateTask = useCallback((updatedTask, listId, taskId) => {
     setLists((lists) =>
       lists.map((list) => (list.id === listId ? (list.tasks.map((task) => task.idTask === taskId ? { ...list, ...list.tasks.splice(list.tasks.findIndex(({ idTask }) => idTask === taskId), 1, { ...updatedTask}) } : list ))[list.tasks.findIndex(({ idTask }) => idTask === taskId)] : list))
     )
-  }, [])
+  },[])
 
   return (
     <Context.Provider
