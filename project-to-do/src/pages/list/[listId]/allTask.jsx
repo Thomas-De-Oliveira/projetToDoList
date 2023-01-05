@@ -1,7 +1,7 @@
 import { useContext } from "@/components/ContextProvider.jsx"
 import Page from "@/components/Page.jsx"
 import ListTask from "@/components/ListTask"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import LayoutList from "@/components/LayoutList.jsx"
 import { useRouter } from "next/router.js"
 
@@ -20,6 +20,7 @@ const ListTaskPage = (props) => {
   } = props
   const { lists, updateCheckBoxTask, deleteTask, deleteList } = useContext()
   const router = useRouter()
+  const [filter, setFilter] = useState("allTask")
   const handleChange = useCallback(
     (values) => {
       const check = values.currentTarget.checked
@@ -52,13 +53,19 @@ const ListTaskPage = (props) => {
     [deleteList, listId, router]
   )
 
+  const handleChangeFilter = useCallback((event) => {
+   setFilter(event.currentTarget.getAttribute("name") === "allTask" ? "notDoTask" : "allTask")
+  },[]
+  )
+
   return (
     <Page>
-      <LayoutList className="flex flex-wrap" listId={listId} onClick={handleDeleteList}></LayoutList>
+      <LayoutList className="flex flex-wrap" listId={listId} onClick={handleDeleteList} filter={filter} onClickFilter={handleChangeFilter}></LayoutList>
       <ListTask onChange={handleChange}
         initialValues={lists.find(({ id }) => id === listId)}
         onClick={handleDelete}
-        listId = {listId}
+        listId={listId}
+        filter = {filter}
       />
     </Page>
   )
