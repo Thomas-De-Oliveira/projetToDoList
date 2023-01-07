@@ -3,7 +3,6 @@ import classNames from "classnames"
 
 const variants = {
   primary: "bg-blue-600 active:bg-blue-700 text-white",
-  secondary: "active:bg-slate-100 text-slate-900",
   transparent: "text-black"
 }
 

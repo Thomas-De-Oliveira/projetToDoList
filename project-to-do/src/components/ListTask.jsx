@@ -14,8 +14,8 @@ const defaultValidationSchema = yup.object().shape({
 const defaultInitialValues = {
   name: "",
   tasks: [{
-            idTask: 1,
-            description: "initial Task",
+            idTask: 0,
+            description: "",
             doTask: 0,
           }]
 }
@@ -41,12 +41,12 @@ const ListTask = (props) => {
 >
   <Form className={classNames("flex flex-col gap-4", className)}>
       <ul className="flex flex-col">
-          {Object.values(initialValues.tasks).map((value, index) => (
+          {Object.values(initialValues.tasks).map((value, index) => value["idTask"] !== 0 ?  (
             <li key={index} className={filter === "notDoTask" ? value["doTask"] === 1 ? "hidden" : "flex flex-wrap border-b-2 border-slate-200 mt-2" : "flex flex-wrap border-b-2 border-slate-200 mt-2"}>
               <FormFieldCheckbox className="p-2 m-2" checked={value["doTask"] === 1 ? "checked" : ""} type="checkbox" data-list-id={initialValues.id}
               data-task-id={value["idTask"]} name="doTask" value={value["doTask"]} onChange={onChange} /><Link className="flex flex-grow" href={`/list/${listId}/${value["idTask"]}/editTask`}> {value["description"]}</Link>
               <Button type="button" className="rounded-full mx-4 flex justify-end opacity-0 hover:opacity-100" variant="transparent" size="tr" data-task-id={value["idTask"]} onClick={onClick}><TrashIcon className="w-4" /></Button> </li>
-          ))}
+          ) : <li key={index} className="hidden"></li> )}
     </ul>
     </Form>
       </Formik>
