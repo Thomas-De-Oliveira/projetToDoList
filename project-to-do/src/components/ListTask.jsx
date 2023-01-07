@@ -45,7 +45,7 @@ const ListTask = (props) => {
             <li key={index} className={filter === "notDoTask" ? value["doTask"] === 1 ? "hidden" : "flex flex-wrap border-b-2 border-slate-200 mt-2" : "flex flex-wrap border-b-2 border-slate-200 mt-2"}>
               <FormFieldCheckbox className="p-2 m-2" checked={value["doTask"] === 1 ? "checked" : ""} type="checkbox" data-list-id={initialValues.id}
               data-task-id={value["idTask"]} name="doTask" value={value["doTask"]} onChange={onChange} /><Link className="flex flex-grow" href={`/list/${listId}/${value["idTask"]}/editTask`}> {value["description"]}</Link>
-              <Button type="button" className="rounded-full mx-4 flex justify-end" variant="transparent" size="tr" data-task-id={value["idTask"]} onClick={onClick}><TrashIcon className="w-4" /></Button> </li>
+              <Button type="button" className="rounded-full mx-4 flex justify-end opacity-0 hover:opacity-100" variant="transparent" size="tr" data-task-id={value["idTask"]} onClick={onClick}><TrashIcon className="w-4" /></Button> </li>
           ))}
     </ul>
     </Form>

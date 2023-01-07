@@ -20,7 +20,6 @@ const EditTaskPage = (props) => {
   } = props
   const { lists, updateTask } = useContext()
   const router = useRouter()
-  // eslint-disable-next-line no-console
   const handleUpdateTask = useCallback(
     (values) => {
       updateTask(values, listId, taskId)

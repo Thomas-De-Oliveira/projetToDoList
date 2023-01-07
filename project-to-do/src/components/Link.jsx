@@ -7,7 +7,7 @@ const Link = (props) => {
   return (
     <NextLink
       {...otherProps}
-      className={classNames("hover:underline", className)}
+      className={classNames("", className)}
     />
   )
 }
