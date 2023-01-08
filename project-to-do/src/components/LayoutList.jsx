@@ -16,7 +16,8 @@ const LayoutList = (props) => {
       <Button type="button" variant="transparent" size="tr" onClick={onClick}>
         <TrashIcon className="w-4" />
       </Button>
-      <Button type="button" variant="transparent" size="tr" className="p-1 flex flex-grow justify-end" name={filter} onClick={onClickFilter}>
+      <Button type="button" variant="transparent" size="tr" className="p-1 flex flex-grow justify-end"
+        name={filter} onClick={onClickFilter}>
         {filter === "allTask" ? <CheckCircleIcon className="w-4" /> : <CheckIcon className="w-4" />}
       </Button>
     </div>

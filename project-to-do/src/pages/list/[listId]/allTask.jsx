@@ -60,7 +60,12 @@ const ListTaskPage = (props) => {
 
   return (
     <Page>
-      <LayoutList className="flex flex-wrap" listId={listId} onClick={handleDeleteList} filter={filter} onClickFilter={handleChangeFilter}></LayoutList>
+      <LayoutList className="flex flex-wrap"
+        listId={listId}
+        onClick={handleDeleteList}
+        filter={filter}
+        onClickFilter={handleChangeFilter}>
+      </LayoutList>
       <ListTask onChange={handleChange}
         initialValues={lists.find(({ id }) => id === listId)}
         onClick={handleDelete}

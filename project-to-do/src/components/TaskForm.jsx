@@ -25,7 +25,8 @@ const TaskForm = (props) => {
   return (
     <Formik
       onSubmit={onSubmit}
-      initialValues={initialValues !== defaultInitialValues ? initialValues.tasks.find(({ idTask }) => idTask === taskId) : initialValues}
+      initialValues={initialValues !== defaultInitialValues ?
+        initialValues.tasks.find(({ idTask }) => idTask === taskId) : initialValues}
       validationSchema={validationSchema}
     >
       <Form className={classNames("flex flex-col gap-4 p-4", className)}>
